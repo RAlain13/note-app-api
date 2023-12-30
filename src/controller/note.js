@@ -36,9 +36,9 @@ class UserController {
 
       const noteToUpdateExist = await NotesService.findNote({ where: { id } });
       if (!noteToUpdateExist) return out(res, 404, 'This Note does not exist', null, 'BAD_REQUEST');
-      await NotesService.NoteToUpdate(id, req.body);
+      const noteUpdated = await NotesService.NoteToUpdate(id, req.body);
 
-      return out(res, 200, 'Note updated successfully');
+      return out(res, 200, 'Note updated successfully', noteUpdated);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
